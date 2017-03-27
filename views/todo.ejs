@@ -16,7 +16,7 @@
                     </div>
                 </form>
                 <ul>
-                    <% for(var i = 0; i < todo.length; i++) { %>
+                    <% for(var i = todo.length -1; i >= 0; i--) { %>
                         <li><%=  todo[i].item %></li>
                     <% } %>
                 </ul>
