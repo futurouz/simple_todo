@@ -15,7 +15,12 @@
                         </span>
                     </div>
                 </form>
-            <div>   
+                <ul>
+                    <% for(var i = 0; i < todo.length; i++) { %>
+                        <li><%=  todo[i].task %></li>
+                    <% } %>
+                </ul>
+            <div>            
         </div>
     </div>
 </body>
