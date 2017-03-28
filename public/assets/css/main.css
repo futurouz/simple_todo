@@ -1,0 +1,35 @@
+body {
+    background-color: #D6D6D6;
+    font-family: 'Mako', sans-serif;
+}
+.container {
+    margin: auto;
+    width: 70%;
+    height: 50%;
+    padding: 20px;
+    text-align: center;
+}
+
+.container h1 {
+    font-size: 4em;
+}
+.container input {
+    padding: 15px;
+    background-color:  white;
+}
+.container button {
+    padding: 15px;
+}
+.container ul {
+    list-style-type: none;
+}
+.container li {
+    font-size: 25px;
+    line-height: 50px;
+    background-color:#72BAAC;
+    border: 1px solid #ECF0F1;
+    cursor: pointer;
+}
+.container li:hover {
+    text-decoration: line-through;
+}
