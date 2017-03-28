@@ -10,5 +10,5 @@ app.use(express.static('./public'));
 
 todoController(app);
 
-app.listen(8080);
-console.log('Server is listening to port 8080');
+app.listen(3030);
+console.log('Server is listening to port 3030');
