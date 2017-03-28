@@ -27,9 +27,8 @@ module.exports = function (app) {
     });
     app.delete('/todo/:item', function (req, res) {
         Todo.find({ item: req.params.item.replace(/\-/g, " ") }).remove(function (err, data) {
-            if (err, data) 
-                console.log(err);
-            res.redirect('back');
+            if (err) throw err;
+            res.json(data);
         });
     });
 };
