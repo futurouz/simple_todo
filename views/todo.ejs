@@ -1,0 +1,29 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/assets/delete.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="col-md-12 text-center">
+        <h1>SIMPLE TODO_LIST</h1>
+            <div class="col-md-4 col-md-offset-4">
+                <form method="POST" action ="/todo">
+                    <div class="input-group">
+                        <input type="text" name="item" placeholder="add your task.." class="form-control">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn">Add item</button>
+                        </span>
+                    </div>
+                </form>
+                <ul>
+                    <% for(var i = todo.length -1; i >= 0; i--) { %>
+                        <li><%=  todo[i].item %></li>
+                    <% } %>
+                </ul>
+            <div>            
+        </div>
+    </div>
+</body>
+</html>
