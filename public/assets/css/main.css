@@ -1,5 +1,5 @@
 body {
-    background-color: #D6D6D6;
+    background-color:#ECF0F1;
     font-family: 'Mako', sans-serif;
 }
 .container {
@@ -13,23 +13,44 @@ body {
 .container h1 {
     font-size: 4em;
 }
+
 .container input {
     padding: 15px;
+    width: 60%;
+    border-radius: 5px;
     background-color:  white;
 }
 .container button {
+    margin-left: 20px;
+    letter-spacing: 2px;
+    color: white;
+    font-weight: lighter;
     padding: 15px;
+    border-radius: 25px;
+    background-color: #4CD4B0;
+}
+.container button:hover {
+    background-color: #1BBC9B;
 }
 .container ul {
     list-style-type: none;
 }
 .container li {
+    color: #ECF0F1;
     font-size: 25px;
+    font-weight: lighter;
     line-height: 50px;
-    background-color:#72BAAC;
-    border: 1px solid #ECF0F1;
+    background-color:#E74C3C;
     cursor: pointer;
+    border-radius: 5px;
+    margin: 0 0 10px 10px;
 }
 .container li:hover {
     text-decoration: line-through;
+    background-color:#D04E33;
+}
+
+.list {
+    width: 55%;
+    margin: auto;
 }
