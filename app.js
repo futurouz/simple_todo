@@ -12,17 +12,34 @@ passport.use(new FacebookStrategy({
         return cb(null, profile);
     }));
 
+passport.serializeUser(function (user, cb) {
+    cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+    cb(null, obj);
+});
+
 var app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
+
+app.use(require('morgan')('combined'));
+app.use(require('cookie-parser')());
+app.use(require('body-parser').urlencoded({ extended: true }));
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.get('/', function (req, res) {
     res.render('home', { user: req.user });
 });
 
-app.get('/auth',function(req,res){
+app.get('/auth', function (req, res) {
     res.render('login');
 });
 
@@ -30,10 +47,16 @@ app.get('/auth/facebook',
     passport.authenticate('facebook'));
 
 app.get('/auth/facebook/callback',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
+    passport.authenticate('facebook', { failureRedirect: '/auth' }),
     function (req, res) {
         res.redirect('/');
     });
+app.get('/profile',
+    require('connect-ensure-login').ensureLoggedIn(),
+    function (req, res) {
+        res.render('profile', { user: req.user });
+    });
+
 
 //var data = [{task: 'read a book'},{task: 'pratice english'},{task: 'coding everyday'}];
 todoController(app);
