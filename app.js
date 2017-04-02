@@ -46,14 +46,9 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/auth' }),
     function (req, res) {
-        res.redirect('/profile');
+        res.redirect('/todo');
     });
-app.get('/profile',
-    require('connect-ensure-login').ensureLoggedIn(),
-    function (req, res) {
-        var data = req.user;
-        res.redirect('/todo/?face=' + data);
-    });
+
 
 
 //var data = [{task: 'read a book'},{task: 'pratice english'},{task: 'coding everyday'}];

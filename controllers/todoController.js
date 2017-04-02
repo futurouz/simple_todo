@@ -13,14 +13,15 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 //var data = [{ task: 'read a book' }, { task: 'pratice english' }, { task: 'coding everyday' }];
 
 module.exports = function (app) {
-    app.get('/todo', function (req, res) {
-        var facebookData = req.query.face;
-        Todo.find({}, function (err, data) {
-            if (err) throw err;
-            console.log(facebookData);
-            res.render('todo', { todo: data, user: facebookData });
+    app.get('/todo',
+        function (req, res) {
+            var facebookData = req.query.face;
+            Todo.find({}, function (err, data) {
+                if (err) throw err;
+                var facebookData = req.user;
+                res.render('todo', { todo: data, user: facebookData });
+            });
         });
-    });
     app.post('/todo', urlencodedParser, function (req, res) {
         var newTodo = new Todo(req.body).save(function (err, data) {
             if (err) throw err;
