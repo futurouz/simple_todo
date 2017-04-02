@@ -1,7 +1,7 @@
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-//mongoose.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
+mongoose.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
 
 var todoSchema = mongoose.Schema({
     item: String
@@ -14,9 +14,11 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 module.exports = function (app) {
     app.get('/todo', function (req, res) {
+        var facebookData = req.query.face;
         Todo.find({}, function (err, data) {
             if (err) throw err;
-            res.render('todo', { todo: data });
+            console.log(facebookData);
+            res.render('todo', { todo: data, user: facebookData });
         });
     });
     app.post('/todo', urlencodedParser, function (req, res) {

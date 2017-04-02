@@ -35,11 +35,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.get('/', function (req, res) {
-    res.render('home', { user: req.user });
-});
 
-app.get('/auth', function (req, res) {
+app.get('/', function (req, res) {
     res.render('login');
 });
 
@@ -49,12 +46,13 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
     passport.authenticate('facebook', { failureRedirect: '/auth' }),
     function (req, res) {
-        res.redirect('/');
+        res.redirect('/profile');
     });
 app.get('/profile',
     require('connect-ensure-login').ensureLoggedIn(),
     function (req, res) {
-        res.render('profile', { user: req.user });
+        var data = req.user;
+        res.redirect('/todo/?face=' + data);
     });
 
 
