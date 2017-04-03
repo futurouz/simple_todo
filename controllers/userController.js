@@ -1,8 +1,15 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
-var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
+var userDatabase = require('mongoose');
+userDatabase.Promise = global.Promise;
+userDatabase.createConnection('mongodb://test:test@ds143330.mlab.com:43330/todo2');
 
+var userSchema = userDatabase.Schema({
+    Id: Number,
+    Username: String
+});
+
+var User = userDatabase.model('User',userSchema);
 
 
 module.exports = function (app) {

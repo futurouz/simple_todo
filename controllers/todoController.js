@@ -1,16 +1,15 @@
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
+var todoDatabase = require('mongoose');
+todoDatabase.Promise = global.Promise;
+todoDatabase.createConnection('mongodb://test:test@ds143330.mlab.com:43330/todo2');
 
-var todoSchema = mongoose.Schema({
+var todoSchema = todoDatabase.Schema({
     item: String
 });
-var Todo = mongoose.model('Todo', todoSchema);
+var Todo = todoDatabase.model('Todo', todoSchema);
 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-//var data = [{ task: 'read a book' }, { task: 'pratice english' }, { task: 'coding everyday' }];
 
 module.exports = function (app) {
     app.get('/todo',
