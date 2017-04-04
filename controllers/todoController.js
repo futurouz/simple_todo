@@ -12,7 +12,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 module.exports = function (app) {
-    app.get('/todo',
+    app.get('/todo', require('connect-ensure-login').ensureLoggedIn(),
         function (req, res) {
             var facebookData = req.query.face;
             Todo.find({}, function (err, data) {

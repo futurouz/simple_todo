@@ -2,14 +2,14 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var userDatabase = require('mongoose');
 userDatabase.Promise = global.Promise;
-userDatabase.createConnection('mongodb://test:test@ds143330.mlab.com:43330/todo2');
+userDatabase.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
 
 var userSchema = userDatabase.Schema({
     Id: Number,
     Username: String
 });
 
-var User = userDatabase.model('User',userSchema);
+var User = userDatabase.model('User', userSchema);
 
 
 module.exports = function (app) {
@@ -19,7 +19,26 @@ module.exports = function (app) {
         callbackURL: "http://localhost:3030/auth/facebook/callback"
     },
         function (accessToken, refreshToken, profile, cb) {
-            return cb(null, profile);
+            User.findOne({ Id: profile.id }, function (err, user) {
+                if (err) {
+                    console.log(err);
+                }
+                if (!err && user != null) {
+                    return cb(null, profile);
+                } else {
+                    user = new User({
+                        Id: profile.id,
+                        Username: profile.displayName
+                    });
+                    user.save(function (err) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            return cb(null, profile);
+                        }
+                    });
+                }
+            });
         }));
 
     passport.serializeUser(function (user, cb) {
@@ -45,10 +64,10 @@ module.exports = function (app) {
     app.get('/auth/facebook',
         passport.authenticate('facebook'));
 
-    app.get('/auth/facebook/callback',
-        passport.authenticate('facebook', { failureRedirect: '/auth' }),
+    app.get('/auth/facebook/callback', passport.authenticate('facebook', { failureRedirect: '/auth' }),
         function (req, res) {
             res.redirect('/todo');
         });
+
 
 };
