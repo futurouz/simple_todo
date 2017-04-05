@@ -7,12 +7,13 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
 
 //Schema
-var todoSchema = mongoose.Schema({
-    item: String
-});
-var userSchema = mongoose.Schema({
+var userSchema = new mongoose.Schema({
     Id: Number,
     Username: String
+});
+var todoSchema = new mongoose.Schema({
+    item: String,
+    User_id: { type: mongoose.Schema.Types.Number, ref: 'User' }
 });
 
 //Model
@@ -84,15 +85,17 @@ module.exports = function (app) {
     app.get('/todo', require('connect-ensure-login').ensureLoggedIn(),
         function (req, res) {
             var facebookData = req.query.face;
-            Todo.find({}, function (err, data) {
+            Todo.find({ User_id : req.user.id }, function (err, data) {
                 if (err) throw err;
                 var facebookData = req.user;
                 res.render('todo', { todo: data, user: facebookData });
             });
         });
     app.post('/todo', urlencodedParser, function (req, res) {
-        var newTodo = new Todo(req.body).save(function (err, data) {
-            if (err) throw err;
+        var newTodo = new Todo(req.body);
+        newTodo.User_id = req.user.id;
+        newTodo.save(function(err,data){
+            if(err) throw err;
             res.redirect('back');
         });
     });
