@@ -2,7 +2,6 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var userController = require('../controllers/userController');
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
