@@ -1,10 +1,31 @@
 body {
-    background-color:#ECF0F1;
+    background-color:#F0F0F0;
     font-family: 'Mako', sans-serif;
 }
+
+.navbar {
+  background-color: #4B7337;
+}
+.navbar-header a {
+  color: white;
+}
+.collapse a {
+  color: white;
+}
+.btn {
+  background-color: #1E3C4C;
+}
 .list-group-item-primary {
-    color: black;
+    background-color: #A1D0D8;
+    color: #193E4E;
     margin-bottom: 4px;
+    cursor: pointer;
+    transition: 0.2s all;
+}
+.list-group-item-primary:hover {
+    text-decoration: line-through;
+    background-color: #25A5B0;
+    color: white;
 }
 
 .login-container {
