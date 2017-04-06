@@ -111,4 +111,47 @@ body {
   background-image: linear-gradient(#5B7BD5, #4864B1);
 }
 
+*{
+margin:auto;
+}
+#logo {
+float:left;
+color:#ecf0f1;
+font-size:55px;
+margin-top:20px;
+margin-left:50px;
+font-family: 'Montserrat', sans-serif;
+}
+#navbar{
+height:100px;
+width:100%;
+border-bottom:10px solid #16a085;
+background-color:#1abc9c;
+}
+#navbar ul{
+list-style:none;
+}
+#navbar ul li a{
+text-decoration:none;
+float:left;
+padding:20px 10px;
+text-align:center;
+color:#ecf0f1;
+margin-right:100px;
+margin-top:15px;
+font-size:30px;
+font-family: 'Roboto Condensed', sans-serif;
+font-style:italic;
+}
 
+#navbar ul li a:hover{
+color:#ecf0f1;
+text-shadow:0px 2px 1px #16a085;
+}
+#navbar ul li {
+  float:left;
+}
+
+#navbar ul {
+  float: right;
+}
