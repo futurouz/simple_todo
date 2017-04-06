@@ -1,12 +1,14 @@
 <html>
 <head>
     <link rel="stylesheet" href="/assets/css/site.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Mako" rel="stylesheet">   
+    <link rel="stylesheet" href="/assets/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="/assets/delete.js"></script>
+    <sytle>
+    </style>
 </head>
 <body>
-    <div class="col-12-md">
+          
             <div class="row">
               <div class="col-md-12">
                 <nav class="navbar navbar-default" role="navigation">
@@ -18,7 +20,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <a class="navbar-brand" href="#">Bootflat</a>
+                      <a class="navbar-brand" href="#">TODO_SOMELIST</a>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
                       <p class="navbar-text navbar-right"><a class="navbar-link" href="">Signed in as <%= user.displayName %> </a></p>
@@ -27,21 +29,27 @@
                 </nav>
               </div>
             </div>
-         </div>
+          </div>
+        </div>
+
     <div class="container">
-            <div class="list">
+            <div class="col-md-4 col-md-offset-4">
                 <form method="POST" action ="/todo">
-                    <div>
-                        <input type="text" name="item" placeholder="add your task.." required>
-                        <button type="submit" class="btn"><span>+</span> Add item</button>
+                    <div class="input-group">
+                        <input type="text" name="item"  class="form-control" placeholder="add your task.." required>
+                        <span class="input-group-btn">
+                          <button type="submit" class="btn btn-danger"><span>+</span> Add item</button>
+                        </span>                          
                     </div>
                 </form>
-                <ul>
+            </div>
+            <div class="col-md-6 col-md-offset-3">    
+                <ul class="list-group">
                     <% for(var i = todo.length -1; i >= 0; i--) { %>
-                        <li><%=  todo[i].item %></li>
+                        <li class="list-group-item list-group-item-primary text-center"><%=  todo[i].item %></li>
                     <% } %>
                 </ul>
-            <div> 
-      </div>                 
+            </div>    
+      <div>                 
 </body>
 </html>
