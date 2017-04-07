@@ -2,9 +2,26 @@ body {
     background-color:#F0F0F0;
     font-family: 'Mako', sans-serif;
 }
-
+ul {
+  list-style: none;
+}
+li {
+  border: 1px solid #14575D;
+  color: #14575D;
+  margin-bottom: 5px;
+  padding: 5px;
+  transition: all 0.2s;
+  border-radius: 3px;
+  cursor: pointer;
+}
+li:hover {
+  color: white;
+  background-color: #14575D;
+  padding: 10px;
+  text-decoration: line-through
+}
 .navbar {
-  background-color: #4B7337;
+  background-color: #8EB848;
 }
 .navbar-header a {
   color: white;
@@ -15,19 +32,6 @@ body {
 .btn {
   background-color: #1E3C4C;
 }
-.list-group-item-primary {
-    background-color: #A1D0D8;
-    color: #193E4E;
-    margin-bottom: 4px;
-    cursor: pointer;
-    transition: 0.2s all;
-}
-.list-group-item-primary:hover {
-    text-decoration: line-through;
-    background-color: #25A5B0;
-    color: white;
-}
-
 .login-container {
     margin: auto;
     width: 100%;
