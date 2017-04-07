@@ -38,14 +38,28 @@ li:hover {
 .btn:hover {
   color: #212B40;
 }
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
 
 h1 {
-  font-size: 7em;
-  margin-bottom: 0;
+  text-align: center;
+  font-size: 13em;
+  margin-bottom: 40px;
   line-height: 100px;
 }
 
  p { 
   text-indent: 50px;
+  text-align: justify;
+  margin-bottom: 30px;
+}
+.loginContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
 }
 
