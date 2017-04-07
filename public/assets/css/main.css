@@ -49,13 +49,20 @@ h1 {
   font-size: 13em;
   margin-bottom: 40px;
   line-height: 100px;
+  animation-duration: 1s;
 }
-
- p { 
+p { 
   text-indent: 50px;
   text-align: justify;
   margin-bottom: 30px;
+  animation-delay: 0.7s;
+  animation-duration: 1s;
 }
+a {
+    animation-delay: 0.95s;
+    animation-duration: 1s;
+}
+
 .loginContainer {
     position: absolute;
     top: 50%;
