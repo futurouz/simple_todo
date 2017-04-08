@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
+mongoose.connect('mongodb://test:test@ds155490.mlab.com:55490/heroku_0ndzzm3g');
 
 //Schema
 var userSchema = new mongoose.Schema({
