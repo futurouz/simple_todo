@@ -55,11 +55,11 @@ p {
   text-indent: 50px;
   text-align: justify;
   margin-bottom: 30px;
-  animation-delay: 0.7s;
+  animation-delay: 1s;
   animation-duration: 1s;
 }
 a {
-    animation-delay: 0.95s;
+    animation-delay: 2s;
     animation-duration: 1s;
 }
 

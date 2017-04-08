@@ -82,7 +82,7 @@ module.exports = function (app) {
         function (req, res) {
             res.redirect('/todo');
         });
-    app.get('/todo', require('connect-ensure-login').ensureLoggedIn(),
+    app.get('/todo', require('connect-ensure-login').ensureLoggedIn('/'),
         function (req, res) {
             var facebookData = req.query.face;
             Todo.find({ User_id : req.user.id }, function (err, data) {
