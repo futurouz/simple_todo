@@ -27,7 +27,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 passport.use(new FacebookStrategy({
     clientID: '1683125035314217',
     clientSecret: '5efeae024dbfa6785c5c578c24946f13',
-    callbackURL: "http://localhost:3030/auth/facebook/callback"
+    callbackURL: "/auth/facebook/callback"
 },
     function (accessToken, refreshToken, profile, cb) {
         User.findOne({ Id: profile.id }, function (err, user) {
