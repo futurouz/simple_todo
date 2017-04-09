@@ -27,7 +27,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false })
 passport.use(new FacebookStrategy({
     clientID: '1683125035314217',
     clientSecret: '5efeae024dbfa6785c5c578c24946f13',
-    callbackURL: "http://localhost:3030/auth/facebook/callback"
+    callbackURL: "/auth/facebook/callback"
 },
     function (accessToken, refreshToken, profile, cb) {
         User.findOne({ Id: profile.id }, function (err, user) {
@@ -66,13 +66,17 @@ module.exports = function (app) {
     app.use(require('morgan')('combined'));
     app.use(require('cookie-parser')());
     app.use(require('body-parser').urlencoded({ extended: true }));
-    app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+    app.use(require('express-session')({ secret: 'keyboard cat', cookie: { maxAge: 86400000 }, resave: true, saveUninitialized: true }));
 
     app.use(passport.initialize());
     app.use(passport.session());
 
     app.get('/', function (req, res) {
-        res.render('login');
+        if(req.user) {
+            res.redirect('/todo');
+        } else {
+            res.render('login');
+        }
     });
 
     app.get('/auth/facebook',
