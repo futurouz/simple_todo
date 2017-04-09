@@ -66,13 +66,17 @@ module.exports = function (app) {
     app.use(require('morgan')('combined'));
     app.use(require('cookie-parser')());
     app.use(require('body-parser').urlencoded({ extended: true }));
-    app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+    app.use(require('express-session')({ secret: 'keyboard cat', cookie: { maxAge: 86400000 }, resave: true, saveUninitialized: true }));
 
     app.use(passport.initialize());
     app.use(passport.session());
 
     app.get('/', function (req, res) {
-        res.render('login');
+        if (req.user) {
+            res.redirect('/todo');
+        } else {
+            res.render('login');
+        }
     });
 
     app.get('/auth/facebook',
@@ -85,17 +89,18 @@ module.exports = function (app) {
     app.get('/todo', require('connect-ensure-login').ensureLoggedIn('/'),
         function (req, res) {
             var facebookData = req.query.face;
-            Todo.find({ User_id : req.user.id }, function (err, data) {
+            Todo.find({ User_id: req.user.id }, function (err, data) {
                 if (err) throw err;
                 var facebookData = req.user;
                 res.render('todo', { todo: data, user: facebookData });
             });
         });
+
     app.post('/todo', urlencodedParser, function (req, res) {
         var newTodo = new Todo(req.body);
         newTodo.User_id = req.user.id;
-        newTodo.save(function(err,data){
-            if(err) throw err;
+        newTodo.save(function (err, data) {
+            if (err) throw err;
             res.redirect('back');
         });
     });
@@ -104,5 +109,9 @@ module.exports = function (app) {
             if (err) throw err;
             res.json(data);
         });
+    });
+    app.get('/logout', function (req, res) {
+        req.logout();
+        res.redirect('/');
     });
 };
