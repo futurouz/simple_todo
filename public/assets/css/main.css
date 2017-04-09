@@ -70,3 +70,6 @@ a {
     transform: translateX(-50%) translateY(-50%);
 }
 
+.logout {
+  color: blue;
+}
