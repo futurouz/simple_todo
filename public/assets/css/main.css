@@ -74,11 +74,11 @@ a {
   color: blue;
 }
 
-.err404 {
+.err {
   font-size: 10em;
   font-weight: bold;
 }
-.err404de {
+.errDe {
   font-size: 5em;
   font-weight: bold;
   line-height: 5px;
