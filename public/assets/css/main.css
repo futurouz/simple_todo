@@ -73,3 +73,13 @@ a {
 .logout {
   color: blue;
 }
+
+.err {
+  font-size: 10em;
+  font-weight: bold;
+}
+.errDe {
+  font-size: 5em;
+  font-weight: bold;
+  line-height: 5px;
+}
