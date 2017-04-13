@@ -15,6 +15,7 @@ li {
   cursor: pointer;
 }
 
+
 li:hover {
   color: white;
   background-color: #212B40;
@@ -25,6 +26,9 @@ li:hover {
   background-color: #00AC65;
 }
 .navbar-brand {
+  color: white;
+}
+.text-nav {
   color: white;
 }
 .collapse a {

@@ -89,11 +89,9 @@ module.exports = function (app) {
         });
     app.get('/todo', require('connect-ensure-login').ensureLoggedIn('/'),
         function (req, res) {
-            var facebookData = req.query.face;
             Todo.find({ User_id: req.user.id, completed: false }, function (err, data) {
                 if (err) throw err;
-                var facebookData = req.user;
-                res.render('todo', { todo: data, user: facebookData });
+                res.render('todo', { todo: data, user: req.user });
             });
         });
 
@@ -107,11 +105,18 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/todo/delete/:item', function (req, res) {
-          Todo.find({ item: req.params.item.replace(/\-/g, " ") }).update({ completed : true},function(err,data){
+    app.get('/completed', function (req, res) {
+        Todo.find({ User_id: req.user.id, completed: true },function(err,data){
             if(err) throw err;
+            res.render('complete',{ complete : data, user : req.user});
+        });
+    });
+
+    app.get('/todo/delete/:item', function (req, res) {
+        Todo.find({ item: req.params.item.replace(/\-/g, " ") }).update({ completed: true }, function (err, data) {
+            if (err) throw err;
             res.json(data);
-          });
+        });
     });
 
     //    app.delete('/todo/:item', function (req, res) {

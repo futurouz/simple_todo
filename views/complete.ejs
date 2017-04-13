@@ -4,7 +4,6 @@
     <link rel="stylesheet" href="/assets/css/site.min.css">
     <link rel="stylesheet" href="/assets/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/assets/delete.js"></script>
     <sytle>
     </style>
 </head>
@@ -20,8 +19,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                       </button>
-                      <p class="navbar-text navbar-left"><a class="text-nav" href="/todo">Todo</a></p>
-                      <p class="navbar-text navbar-left"><a class="text-nav" href="/completed">Completed</a></p>
+                      <p class="navbar-text navbar-left"><a  class="text-nav" href="/todo">Todo</a></p>
+                      <p class="navbar-text navbar-left"><a  class="text-nav" href="/completed">Completed</a></p>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-3">
                       <p class="navbar-text navbar-right"><a class="navbar-link" href="/logout">Logout</a></p>
@@ -35,23 +34,20 @@
         </div>
 
     <div class="container">
-            <div class="col-md-4 col-md-offset-4">
-                <form method="POST" action ="/todo">
-                    <div class="input-group">
-                        <input type="text" name="item"  class="form-control" placeholder="add your task.." required>
-                        <span class="input-group-btn">
-                          <button type="submit" class="btn">+  Add item</button>
-                        </span>                          
-                    </div>
-                </form>
+        <div class="row">
+            <div class="col-md-12 text-center">
+                 <h2>Completed Tasks.</h2>  
             </div>
-            <div class="col-md-4 col-md-offset-4">    
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">  
                 <ul class="list-group">
-                    <% for(var i = todo.length -1; i >= 0; i--) { %>
-                        <li class=" text-center"><%=  todo[i].item %></li>
+                    <% for(var i = complete.length -1; i >= 0; i--) { %>
+                        <li class=" text-center"><%=  complete[i].item %></li>
                     <% } %>
                 </ul>
-            </div>    
+            </div>  
+        </div>      
       <div>                 
 </body>
 </html>
