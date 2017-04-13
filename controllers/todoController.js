@@ -1,7 +1,11 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var bodyParser = require('body-parser');
+var moment = require('moment');
 var mongoose = require('mongoose');
+
+var currentDate = moment().format("LL");
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://test:test@ds155490.mlab.com:55490/heroku_0ndzzm3g');
@@ -91,7 +95,7 @@ module.exports = function (app) {
         function (req, res) {
             Todo.find({ User_id: req.user.id, completed: false }, function (err, data) {
                 if (err) throw err;
-                res.render('todo', { todo: data, user: req.user });
+                res.render('todo', { todo: data, user: req.user, moment: currentDate });
             });
         });
 

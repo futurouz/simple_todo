@@ -87,3 +87,11 @@ a {
   font-weight: bold;
   line-height: 5px;
 }
+.date-text {
+    font-size: 4em;
+    font-weight: bold;
+}
+.time {
+  font-size: 1em;
+  font-weight: bold;
+}
