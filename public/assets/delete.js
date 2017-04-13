@@ -1,9 +1,10 @@
+
 $(document).ready(function () {
     $('li').on('click', function () {
         var item = $(this).text().replace(/ /g, "-");
         $.ajax({
-            type: 'DELETE',
-            url: '/todo/' + item,
+            type: 'GET',
+            url: '/todo/delete/' + item,
             success: function (data) {
                 location.reload();
             }

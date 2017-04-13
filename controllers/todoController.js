@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://test:test@ds143330.mlab.com:43330/todo2');
+mongoose.connect('mongodb://test:test@ds155490.mlab.com:55490/heroku_0ndzzm3g');
 
 //Schema
 var userSchema = new mongoose.Schema({
@@ -13,6 +13,7 @@ var userSchema = new mongoose.Schema({
 });
 var todoSchema = new mongoose.Schema({
     item: String,
+    completed: Boolean,
     User_id: { type: mongoose.Schema.Types.Number, ref: 'User' }
 });
 
@@ -89,7 +90,7 @@ module.exports = function (app) {
     app.get('/todo', require('connect-ensure-login').ensureLoggedIn('/'),
         function (req, res) {
             var facebookData = req.query.face;
-            Todo.find({ User_id: req.user.id }, function (err, data) {
+            Todo.find({ User_id: req.user.id, completed: false }, function (err, data) {
                 if (err) throw err;
                 var facebookData = req.user;
                 res.render('todo', { todo: data, user: facebookData });
@@ -98,6 +99,7 @@ module.exports = function (app) {
 
     app.post('/todo', urlencodedParser, function (req, res) {
         var newTodo = new Todo(req.body);
+        newTodo.completed = false;
         newTodo.User_id = req.user.id;
         newTodo.save(function (err, data) {
             if (err) throw err;
@@ -105,12 +107,19 @@ module.exports = function (app) {
         });
     });
 
-    app.delete('/todo/:item', function (req, res) {
-        Todo.find({ item: req.params.item.replace(/\-/g, " ") }).remove(function (err, data) {
-            if (err) throw err;
+    app.get('/todo/delete/:item', function (req, res) {
+          Todo.find({ item: req.params.item.replace(/\-/g, " ") }).update({ completed : true},function(err,data){
+            if(err) throw err;
             res.json(data);
-        });
+          });
     });
+
+    //    app.delete('/todo/:item', function (req, res) {
+    //        Todo.find({ item: req.params.item.replace(/\-/g, " ") }).remove(function (err, data) {
+    //            if (err) throw err;
+    //            res.json(data);
+    //        });
+    //   });
 
     app.get('/logout', function (req, res) {
         req.logout();
