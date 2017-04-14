@@ -103,6 +103,7 @@ module.exports = function (app) {
     app.post('/todo', urlencodedParser, function (req, res) {
         var newTodo = new Todo(req.body);
         newTodo.completed = false;
+        newTodo.date = moment().format();
         newTodo.User_id = req.user.id;
         newTodo.save(function (err, data) {
             if (err) throw err;
