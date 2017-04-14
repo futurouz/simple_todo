@@ -2,10 +2,10 @@ body {
     background-color:#F0F0F0;
     font-family: 'Mako', sans-serif;
 }
-ul {
+.todo-ul,.complete-ul {
   list-style: none;
 }
-li {
+.todo-li {
   border: 1px solid #212B40;
   color: #212B40;
   margin-bottom: 5px;
@@ -15,16 +15,35 @@ li {
   cursor: pointer;
 }
 
-li:hover {
+.todo-li:hover {
   color: white;
   background-color: #212B40;
   padding: 10px;
   text-decoration: line-through
 }
+
+.complete-li {
+    border: 1px solid #D04E33;
+    color: #D04E33;
+    margin-bottom: 5px;
+    padding: 5px;
+    transition: all 0.2s;
+    border-radius: 3px;
+}
+
+.complete-li:hover {
+  color:white;
+  background-color: #D04E33;
+  padding: 10px;
+}
+
 .navbar {
   background-color: #00AC65;
 }
 .navbar-brand {
+  color: white;
+}
+.text-nav {
   color: white;
 }
 .collapse a {
@@ -82,4 +101,18 @@ a {
   font-size: 5em;
   font-weight: bold;
   line-height: 5px;
+}
+.date-text {
+    font-size: 5em;
+    font-weight: bold;
+}
+.time {
+  font-size: 1em;
+  font-weight: bold;
+}
+.time-ago {
+  position: absolute;
+  font-size: 10px;
+  right: 7%;
+  border:0px;
 }

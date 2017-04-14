@@ -1,7 +1,11 @@
 var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var bodyParser = require('body-parser');
+var moment = require('moment');
 var mongoose = require('mongoose');
+
+var currentDate = moment().format("LL");
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://test:test@ds155490.mlab.com:55490/heroku_0ndzzm3g');
@@ -13,6 +17,8 @@ var userSchema = new mongoose.Schema({
 });
 var todoSchema = new mongoose.Schema({
     item: String,
+    completed: Boolean,
+    date: { type: Date, default: Date.now() },
     User_id: { type: mongoose.Schema.Types.Number, ref: 'User' }
 });
 
@@ -88,16 +94,16 @@ module.exports = function (app) {
         });
     app.get('/todo', require('connect-ensure-login').ensureLoggedIn('/'),
         function (req, res) {
-            var facebookData = req.query.face;
-            Todo.find({ User_id: req.user.id }, function (err, data) {
+            Todo.find({ User_id: req.user.id, completed: false }, function (err, data) {
                 if (err) throw err;
-                var facebookData = req.user;
-                res.render('todo', { todo: data, user: facebookData });
+                res.render('todo', { todo: data, user: req.user, moment: currentDate });
             });
         });
 
     app.post('/todo', urlencodedParser, function (req, res) {
         var newTodo = new Todo(req.body);
+        newTodo.completed = false;
+        newTodo.date = moment().format();
         newTodo.User_id = req.user.id;
         newTodo.save(function (err, data) {
             if (err) throw err;
@@ -105,12 +111,27 @@ module.exports = function (app) {
         });
     });
 
-    app.delete('/todo/:item', function (req, res) {
-        Todo.find({ item: req.params.item.replace(/\-/g, " ") }).remove(function (err, data) {
+    app.get('/completed', require('connect-ensure-login').ensureLoggedIn('/'), function (req, res) {
+        Todo.find({ User_id: req.user.id, completed: true }, function (err, data) {
+            if (err) throw err;
+            console.log(data.data);
+            res.render('complete', { complete: data, user: req.user, moment: moment });
+        });
+    });
+
+    app.get('/todo/delete/:item', function (req, res) {
+        Todo.find({ item: req.params.item.replace(/\-/g, " ") }).update({ completed: true }, function (err, data) {
             if (err) throw err;
             res.json(data);
         });
     });
+
+    //    app.delete('/todo/:item', function (req, res) {
+    //        Todo.find({ item: req.params.item.replace(/\-/g, " ") }).remove(function (err, data) {
+    //            if (err) throw err;
+    //            res.json(data);
+    //        });
+    //   });
 
     app.get('/logout', function (req, res) {
         req.logout();
@@ -118,21 +139,16 @@ module.exports = function (app) {
     });
 
     app.get('/404', function (req, res, next) {
-        // trigger a 404 since no other middleware
-        // will match /404 after this one, and we're not
-        // responding here
         next();
     });
 
     app.get('/403', function (req, res, next) {
-        // trigger a 403 error
         var err = new Error('not allowed!');
         err.status = 403;
         next(err);
     });
 
     app.get('/500', function (req, res, next) {
-        // trigger a generic (500) error
         next(new Error('keyboard cat!'));
     });
 
@@ -153,9 +169,6 @@ module.exports = function (app) {
     });
 
     app.use(function (err, req, res, next) {
-        // we may use properties of the error object
-        // here and next(err) appropriately, or if
-        // we possibly recovered from the error, simply next().
         res.status(err.status || 500);
         res.render('500', { error: err });
     });
