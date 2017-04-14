@@ -110,3 +110,9 @@ a {
   font-size: 1em;
   font-weight: bold;
 }
+.time-ago {
+  position: absolute;
+  font-size: 10px;
+  right: 7%;
+  border:0px;
+}

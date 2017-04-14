@@ -18,6 +18,7 @@ var userSchema = new mongoose.Schema({
 var todoSchema = new mongoose.Schema({
     item: String,
     completed: Boolean,
+    date: { type: Date, default: Date.now() },
     User_id: { type: mongoose.Schema.Types.Number, ref: 'User' }
 });
 
@@ -109,10 +110,11 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/completed', function (req, res) {
-        Todo.find({ User_id: req.user.id, completed: true },function(err,data){
-            if(err) throw err;
-            res.render('complete',{ complete : data, user : req.user});
+    app.get('/completed', require('connect-ensure-login').ensureLoggedIn('/'), function (req, res) {
+        Todo.find({ User_id: req.user.id, completed: true }, function (err, data) {
+            if (err) throw err;
+            console.log(data.data);
+            res.render('complete', { complete: data, user: req.user, moment: moment });
         });
     });
 
@@ -136,21 +138,16 @@ module.exports = function (app) {
     });
 
     app.get('/404', function (req, res, next) {
-        // trigger a 404 since no other middleware
-        // will match /404 after this one, and we're not
-        // responding here
         next();
     });
 
     app.get('/403', function (req, res, next) {
-        // trigger a 403 error
         var err = new Error('not allowed!');
         err.status = 403;
         next(err);
     });
 
     app.get('/500', function (req, res, next) {
-        // trigger a generic (500) error
         next(new Error('keyboard cat!'));
     });
 
@@ -171,9 +168,6 @@ module.exports = function (app) {
     });
 
     app.use(function (err, req, res, next) {
-        // we may use properties of the error object
-        // here and next(err) appropriately, or if
-        // we possibly recovered from the error, simply next().
         res.status(err.status || 500);
         res.render('500', { error: err });
     });
